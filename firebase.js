@@ -4,19 +4,13 @@ import { getFirestore } from 'firebase/firestore'
 import {getStorage} from 'firebase/storage'
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBSIiAbBLvt3N6f0K66BDUAMsizb6JDJnE",
-
-  authDomain: "italian-mobile-app.firebaseapp.com",
-
-  projectId: "italian-mobile-app",
-
-  storageBucket: "italian-mobile-app.appspot.com",
-
-  messagingSenderId: "474565072674",
-
-  appId: "1:474565072674:web:2c306e65ccd4640953b77b",
-
-  measurementId: "G-F0S6SCTG9V"
+    apiKey: "AIzaSyDhvl-1OaLVQe7BS745YJRm6719Zxkk-cc",
+  authDomain: "languagelearning-5bf8f.firebaseapp.com",
+  projectId: "languagelearning-5bf8f",
+  storageBucket: "languagelearning-5bf8f.appspot.com",
+  messagingSenderId: "785099551174",
+  appId: "1:785099551174:web:27cff8f8dd4319fa2b82c7",
+  measurementId: "G-K9BL52QC4M"
 }
 
 export const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
