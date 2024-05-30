@@ -181,18 +181,18 @@ export default function Page() {
           }
           //required
         />
-        <label className="" htmlFor="email">
-          Email Address
-        </label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          placeholder="example@example.com"
-          value={formData.email}
-          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-          //required
-        />
+        {/*<label className="" htmlFor="email">*/}
+        {/*  Email Address*/}
+        {/*</label>*/}
+        {/*<input*/}
+        {/*  type="email"*/}
+        {/*  id="email"*/}
+        {/*  name="email"*/}
+        {/*  placeholder="example@example.com"*/}
+        {/*  value={formData.email}*/}
+        {/*  onChange={(e) => setFormData({ ...formData, email: e.target.value })}*/}
+        {/*  //required*/}
+        {/*/>*/}
         <label className="" htmlFor="department">
           Department
         </label>

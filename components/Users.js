@@ -168,7 +168,7 @@ export default function UserDashboard() {
 
             <div className="mt-5">
               <Link
-                href="/AddUser"
+                href="/addUser"
                 underline="hover"
                 style={{ fontSize: "200%", marginBottom: ".5rem" }}
               >

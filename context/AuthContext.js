@@ -19,16 +19,19 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
 
-  async function signup(email, password) {
+  async function signup(email, password, formData) {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
+     // const user = userCredential.user;
 
       // Make sure user is not admin by default
+      if (formData){
+        await setDoc(doc(db, "users", user.uid), formData)
+      } else{
       await setDoc(doc(db, "users", user.uid), {
         email,
         isAdmin: false
-      });
+      }); }
     } catch (error) {
         console.error(error);
     }
