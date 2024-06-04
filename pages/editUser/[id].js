@@ -16,7 +16,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import { Button } from "@mui/material";
-
+const {currentUser, isAdmin} = useAuth()
 export default function Page() {
   const options = ["ITA 1113", "ITA 1114", "ITA 1911"];
 

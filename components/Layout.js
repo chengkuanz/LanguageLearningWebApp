@@ -12,6 +12,7 @@ export default function Layout(props) {
 
 
   return (
+
     <div className='flex flex-col min-h-screen relative bg-neutral-800 text-white'> 
       <Header />
       <div className='sidebar-and-main'>

@@ -2,11 +2,13 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Login from '../components/Login'
 import AddCourse from '../components/AddCourse'
-import {useAuth} from '../context/AuthContext'
+import {AuthContext, useAuth} from '../context/AuthContext'
 import AccessDenied from "../components/AccessDenied";
+import {useContext} from "react";
 
 export default function Home() {
-  const {currentUser, isAdmin} = useAuth()
+  //const {currentUser, isAdmin} = useAuth()
+    const {currentUser, isAdmin} =  useContext(AuthContext)
 
   return (
       < >

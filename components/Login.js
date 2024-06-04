@@ -8,7 +8,7 @@ export default function Login() {
     const [isLoggingIn, setIsLoggingIn] = useState(true)
 
     const { login, signup, currentUser } = useAuth()
-    console.log(currentUser)
+    console.log("log in" + currentUser)
 
     async function submitHandler() {
         if (!email || !password) {
@@ -30,7 +30,7 @@ export default function Login() {
         }
         await signup(email, password)
     }
-
+    console.log("login")
     return (
         <div className='flex-1 text-xs sm:text-sm flex flex-col items-center gap-2 sm:gap-4'>
             <h1 className='font-extrabold select-none text-2xl sm:text-4xl uppercase'>{isLoggingIn ? 'Login' : 'register'}</h1>

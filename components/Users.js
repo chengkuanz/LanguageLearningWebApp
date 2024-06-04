@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { useAuth } from "../context/AuthContext";
 import UserCard from "./UserCard";
 import { doc, setDoc, deleteField } from "firebase/firestore";
@@ -6,9 +6,11 @@ import { db } from "../firebase";
 import useFetchUsers from "../hooks/fetchUsers";
 import { Link } from "@mui/material";
 import { Button } from "@mui/material";
+import {AuthContext} from '../context/AuthContext'
 
 export default function UserDashboard() {
-  const { userInfo, currentUser } = useAuth();
+  const {currentUser, isAdmin} =  useContext(AuthContext)
+ // const { userInfo, currentUser } = useAuth();
   const [edit, setEdit] = useState(null);
   const [edittedValue, setEdittedValue] = useState("");
   const [sortField, setSortField] = useState("");

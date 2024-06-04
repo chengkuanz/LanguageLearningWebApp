@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useAuth } from "../context/AuthContext";
+import React, {useContext, useEffect, useState} from "react";
+import {AuthContext, useAuth} from "../context/AuthContext";
 import CourseCard from "./CourseCard";
 import {
   doc,
@@ -10,13 +10,14 @@ import {
 } from "firebase/firestore";
 import { db , storage} from "../firebase";
 import useFetchCourses from "../hooks/fetchCourses";
-import { useRouter } from "next/router";
+//import { useRouter } from "next/router";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 } from "uuid";
 
 export default function UserDashboard() {
-  const router = useRouter();
-  const { userInfo, currentUser } = useAuth();
+  //const router = useRouter();
+    const {currentUser, isAdmin} =  useContext(AuthContext)
+ // const { userInfo, currentUser } = useAuth();
   const [bannerUpload, setBannerUpload] = useState(null);
   const [course, setCourse] = useState({
     activeCourse: true,
@@ -55,7 +56,7 @@ export default function UserDashboard() {
     };
     const docRef = await addDoc(collection(db, "courses"), updatedFormData);
     setCourse("");
-    router.push("/courses");
+   // router.push("/courses");
   }
 
   return (

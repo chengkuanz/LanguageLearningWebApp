@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useAuth } from "../context/AuthContext";
+import React, {useContext, useEffect, useState} from "react";
+import {AuthContext, useAuth} from "../context/AuthContext";
 import CourseCard from "./CourseCard";
 import {
   doc,
@@ -18,7 +18,8 @@ import { Link } from "@mui/material";
 import { Button } from "@mui/material";
 
 export default function UserDashboard() {
-  const { userInfo, currentUser } = useAuth();
+//  const { userInfo, currentUser } = useAuth();
+  const {currentUser, isAdmin} =  useContext(AuthContext)
   const [edit, setEdit] = useState(null);
   const [course, setCourse] = useState([]);
   const [edittedValue, setEdittedValue] = useState("");
