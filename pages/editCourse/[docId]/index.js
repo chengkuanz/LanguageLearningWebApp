@@ -62,7 +62,7 @@ export default function Page() {
     // Do something with the updated form values
     console.log(updatedFormData);
 
-    router.push("/courses");
+    await router.push("/courses");
   };
 
   useEffect(() => {

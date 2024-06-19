@@ -93,4 +93,4 @@ console.log(courses)
   );
 }
 
-export const GetServerSideProps = () => {};
+//export const GetServerSideProps = () => {};

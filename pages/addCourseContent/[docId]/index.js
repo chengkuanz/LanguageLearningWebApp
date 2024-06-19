@@ -38,7 +38,7 @@ export default function Page() {
       setCourse("");
   
       console.log("Form submitted successfully");
-      router.push(`/courseContent/${docId}`);
+      await router.push(`/courseContent/${docId}`);
     } catch (error) {
       console.error("Error submitting form:", error);
       // Handle the error accordingly

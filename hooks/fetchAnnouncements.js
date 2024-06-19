@@ -20,7 +20,9 @@ export default function useFetchAnnouncements() {
           setLoading(false);
         };
       
-        fetchData();
+        fetchData().then(r =>{
+            console.log('fetch announcement')
+        } );
     }, [])
 
     return { loading, error, announcements, setAnnouncements }

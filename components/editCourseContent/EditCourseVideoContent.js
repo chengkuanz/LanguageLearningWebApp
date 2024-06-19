@@ -150,7 +150,7 @@ const AddCourseVideoContent = ({ onSubmit, documentId, courseCode, type }) => {
 
     //console.log(jsonData);
     onSubmit(updatedFormData, docToUpdateId);
-    router.push(`/courseContent/${formData.courseDocId}`);
+    await router.push(`/courseContent/${formData.courseDocId}`);
   };
 
   const handleInputChange = (event) => {

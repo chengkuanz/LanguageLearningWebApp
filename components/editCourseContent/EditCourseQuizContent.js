@@ -45,7 +45,7 @@ const EditCourseQuizContent = ({ onSubmit, documentId, type, getDocumentData }) 
           }
         };
     
-        fetchData();
+        fetchData().then();
       }, [documentId]);
   
     const handleClick = (event) => {
@@ -62,7 +62,7 @@ const EditCourseQuizContent = ({ onSubmit, documentId, type, getDocumentData }) 
     const handleFormSubmit = (event) => {
       event.preventDefault();
       onSubmit(formData, docToUpdateId); // Call the onSubmit callback with the form data
-      router.push(`/courseContent/${formData.courseDocId}`);
+      router.push(`/courseContent/${formData.courseDocId}`).then(r => {});
     };
   
     const handleInputChange = (event) => {

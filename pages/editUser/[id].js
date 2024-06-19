@@ -97,9 +97,12 @@ export default function Page() {
       }
     };
 
-    fetchData();
-    setRegisteredCourses(formData.registeredCourses);
-    setIsFirstEffectDone(true);
+    fetchData().then(()=> {
+      setRegisteredCourses(formData.registeredCourses);
+      setIsFirstEffectDone(true);
+    })
+    // setRegisteredCourses(formData.registeredCourses);
+    // setIsFirstEffectDone(true);
   }, [id]);
 
   useEffect(() => {

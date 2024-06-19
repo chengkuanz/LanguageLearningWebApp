@@ -28,7 +28,9 @@ export default function useFetchVideos() {
       setLoading(false);
     };
 
-    fetchData();
+    fetchData().then(r => {
+      console.log(`fetch video data`)
+    });
   }, []);
 
   return { loading, error, videos, setVideos };

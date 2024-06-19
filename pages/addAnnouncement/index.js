@@ -56,7 +56,7 @@ export default function AnnouncementsPage() {
         activeCourses: [],
       });
   
-      router.push("/announcements"); // Redirect after successful submission
+      await router.push("/announcements"); // Redirect after successful submission
     } catch (error) {
       console.error("Error adding announcement:", error);
       // Handle error and display an error message to the user

@@ -19,10 +19,10 @@ import { Button } from "@mui/material";
 
 export default function UserDashboard() {
 //  const { userInfo, currentUser } = useAuth();
-  const {currentUser, isAdmin} =  useContext(AuthContext)
-  const [edit, setEdit] = useState(null);
-  const [course, setCourse] = useState([]);
-  const [edittedValue, setEdittedValue] = useState("");
+//   const {currentUser, isAdmin} =  useContext(AuthContext)
+//   const [edit, setEdit] = useState(null);
+//   const [course, setCourse] = useState([]);
+//   const [edittedValue, setEdittedValue] = useState("");
 
   const { courses, isLoading, isError } = useFetchCourses();
 
@@ -74,7 +74,7 @@ export default function UserDashboard() {
                   <th>Code</th>
                   <th>Section</th>
                   {/* <th>Semester</th>
-                  <th>Year</th> 
+                  <th>Year</th>
                   <th>Virtual</th>
                   <th>Location</th>*/}
                   <th>Day</th>
@@ -163,4 +163,4 @@ export default function UserDashboard() {
   );
 }
 
-export const GetServerSideProps = () => {};
+//export const GetServerSideProps = () => {};

@@ -55,7 +55,7 @@ export default function UserDashboard() {
     };
     const docRef = await addDoc(collection(db, "courses"), updatedFormData);
     setCourse("");
-    router.push("/courses");
+    await router.push("/courses");
   }
 
   return (
@@ -257,4 +257,4 @@ export default function UserDashboard() {
   );
 }
 
-export const GetServerSideProps = () => {};
+//export const GetServerSideProps = () => {};

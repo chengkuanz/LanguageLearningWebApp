@@ -28,7 +28,7 @@ const AddCourseTextContent = ({ onSubmit, documentId, type }) => {
       type: "text",
     }));
     console.log(formData);
-  }, []);
+  }, [documentId, formData]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -91,7 +91,7 @@ const AddCourseTextContent = ({ onSubmit, documentId, type }) => {
         onChange={handleTextContentChange}
       />
     ),
-    []
+    [handleTextContentChange, textContent]
   );
 
   return (
