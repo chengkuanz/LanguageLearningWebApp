@@ -16,8 +16,9 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import { Button } from "@mui/material";
-const {currentUser, isAdmin} = useAuth()
+
 export default function Page() {
+  const { currentUser, isAdmin } = useAuth(); // Moved inside the component
   const options = ["ITA 1113", "ITA 1114", "ITA 1911"];
 
   const [formData, setFormData] = useState({});
@@ -87,10 +88,6 @@ export default function Page() {
         }
         setFormData(newData);
 
-        // setFormData((prevFormData) => ({
-        //   ...prevFormData,
-
-        // }));
         console.log(formData.registeredCourses);
 
         setLoading(false);
@@ -151,7 +148,6 @@ export default function Page() {
           placeholder="Title"
           value={formData.title}
           onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-          //required
         />
         <label className="" htmlFor="first">
           First Name
@@ -165,7 +161,6 @@ export default function Page() {
           onChange={(e) =>
             setFormData({ ...formData, firstName: e.target.value })
           }
-          //required
         />
         <label className="" htmlFor="last">
           Last Name
@@ -179,20 +174,7 @@ export default function Page() {
           onChange={(e) =>
             setFormData({ ...formData, lastName: e.target.value })
           }
-          //required
         />
-        {/*<label className="" htmlFor="email">*/}
-        {/*  Email Address*/}
-        {/*</label>*/}
-        {/*<input*/}
-        {/*  type="email"*/}
-        {/*  id="email"*/}
-        {/*  name="email"*/}
-        {/*  placeholder="example@example.com"*/}
-        {/*  value={formData.email}*/}
-        {/*  onChange={(e) => setFormData({ ...formData, email: e.target.value })}*/}
-        {/*  //required*/}
-        {/*/>*/}
         <label className="" htmlFor="department">
           Department
         </label>
@@ -205,7 +187,6 @@ export default function Page() {
           onChange={(e) =>
             setFormData({ ...formData, department: e.target.value })
           }
-          //required
         />
         <label className="" htmlFor="program">
           Program
@@ -219,7 +200,6 @@ export default function Page() {
           onChange={(e) =>
             setFormData({ ...formData, program: e.target.value })
           }
-          //required
         />
         <label className="" htmlFor="studentNumber">
           Student Number
@@ -233,7 +213,6 @@ export default function Page() {
           onChange={(e) =>
             setFormData({ ...formData, studentNumber: e.target.value })
           }
-          //required
         />
         <div className="date-picker-container">
           <label className="mr-2" htmlFor="enrollmentDate">
