@@ -32,12 +32,17 @@ export default function Home() {
   
     // Check if registeredCourses field exists in the document
     const registeredCourses = userDoc.registeredCourses || [];
-  
+    const registering = userDoc.registering || [];
+    console.log("register courses", registeredCourses);
     const updatedCourses = new Set(registeredCourses);
-    updatedCourses.add(req.courseDocId);
-  
+    updatedCourses.add(req.courseId);
+    const registering2 = registering.filter(code => code!== req.courseId)
+    console.log("request", req.courseId);
+    console.log("updated courses", updatedCourses);
+  console.log("updated courses", Array.from(updatedCourses));
     await updateDoc(userRef, {
-      registeredCourses: Array.from(updatedCourses)
+      registeredCourses: Array.from(updatedCourses),
+      registering: registering2
     });
   
     await deleteDoc(reqRef);
