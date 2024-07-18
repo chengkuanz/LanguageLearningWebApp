@@ -55,7 +55,7 @@ export default function Home() {
    
 
     setLoading(false);
-    router.push("/courses");
+    await router.push("/courses");
   };
 
   

@@ -10,12 +10,12 @@ import {
 } from "firebase/firestore";
 import { db , storage} from "../firebase";
 import useFetchCourses from "../hooks/fetchCourses";
-//import { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 } from "uuid";
 
 export default function UserDashboard() {
-  //const router = useRouter();
+  const router = useRouter();
     const {currentUser, isAdmin} =  useContext(AuthContext)
  // const { userInfo, currentUser } = useAuth();
   const [bannerUpload, setBannerUpload] = useState(null);
@@ -56,7 +56,7 @@ export default function UserDashboard() {
     };
     const docRef = await addDoc(collection(db, "courses"), updatedFormData);
     setCourse("");
-   // router.push("/courses");
+    await router.push("/courses");
   }
 
   return (
@@ -258,4 +258,4 @@ export default function UserDashboard() {
   );
 }
 
-export const GetServerSideProps = () => {};
+//export const GetServerSideProps = () => {};

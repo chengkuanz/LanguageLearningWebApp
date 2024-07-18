@@ -52,7 +52,7 @@ const AddCourseTextContent = ({ onSubmit, documentId, courseCode, type }) => {
     };
 
     fetchData();
-  }, [documentId]);
+  }, [documentId, textContent]);
 
 
 
@@ -125,7 +125,7 @@ const AddCourseTextContent = ({ onSubmit, documentId, courseCode, type }) => {
         defaultValue={initialText}
       />
     ),
-    [initialText]
+    [handleTextContentChange, initialText, textContent]
   );
 
   return (

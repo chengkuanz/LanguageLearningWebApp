@@ -48,7 +48,7 @@ export default function Page() {
     // Do something with the updated form values
     console.log(updatedDocument);
 
-    router.push("/videos");
+    await router.push("/videos");
   };
 
   const addVideoTimestamp = () => {
@@ -75,7 +75,7 @@ export default function Page() {
       }
     };
 
-    fetchData();
+    fetchData().then();
   }, [id]);
 
   return (
