@@ -1,16 +1,14 @@
-import React, {useContext, useEffect, useState} from "react";
-import { useAuth } from "../context/AuthContext";
-import UserCard from "./UserCard";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../context/AuthContext";
 import { doc, setDoc, deleteField } from "firebase/firestore";
 import { db } from "../firebase";
 import useFetchUsers from "../hooks/fetchUsers";
-import { Link } from "@mui/material";
 import { Button } from "@mui/material";
-import {AuthContext} from '../context/AuthContext'
+import { AiOutlineEdit, AiOutlineDelete, AiOutlinePlus } from "react-icons/ai";
+import Link from "next/link";
 
 export default function UserDashboard() {
-  const {currentUser, isAdmin} =  useContext(AuthContext)
- // const { userInfo, currentUser } = useAuth();
+  const { currentUser, isAdmin } = useContext(AuthContext);
   const [edit, setEdit] = useState(null);
   const [edittedValue, setEdittedValue] = useState("");
   const [sortField, setSortField] = useState("");
@@ -18,36 +16,23 @@ export default function UserDashboard() {
   const [searchValue, setSearchValue] = useState("");
 
   const { users, setUsers, loading, error } = useFetchUsers();
-  console.log(users);
 
-  function handleDelete(userKey) {
-    return async () => {
-      const tempObj = { ...users };
-      delete tempObj[userKey];
-
-      setUsers(tempObj);
-      const userRef = doc(db, "users", currentUser.uid);
+  async function handleDelete(userId) {
+    try {
       await setDoc(
-        userRef,
-        {
-          users: {
-            [userKey]: deleteField(),
-          },
-        },
-        { merge: true }
+          doc(db, "users", userId),
+          { deleted: true },
+          { merge: true }
       );
-    };
+      setUsers(users.filter(user => user.id !== userId));
+    } catch (error) {
+      console.error("Error deleting user: ", error);
+    }
   }
 
   function handleSort(field) {
     if (sortField === field) {
-      if (sortOrder === "asc") {
-        setSortOrder("desc");
-      } else if (sortOrder === "desc") {
-        setSortOrder("");
-      } else {
-        setSortOrder("asc");
-      }
+      setSortOrder(sortOrder === "asc" ? "desc" : sortOrder === "desc" ? "" : "asc");
     } else {
       setSortField(field);
       setSortOrder("asc");
@@ -64,11 +49,10 @@ export default function UserDashboard() {
     }
   }
 
-  const sortedUsers = [...users];
-  sortedUsers.sort((a, b) => {
+  const sortedUsers = [...users].sort((a, b) => {
     if (sortField === "isAdmin") {
-      const fieldA = a[sortField] ? (a[sortField] ? 1 : 0) : 0;
-      const fieldB = b[sortField] ? (b[sortField] ? 1 : 0) : 0;
+      const fieldA = a[sortField] ? 1 : 0;
+      const fieldB = b[sortField] ? 1 : 0;
       return sortOrder === "asc" ? fieldA - fieldB : fieldB - fieldA;
     } else {
       const fieldA = a[sortField] ? String(a[sortField]).toLowerCase() : "";
@@ -77,10 +61,10 @@ export default function UserDashboard() {
     }
   });
 
-  const filteredUsers = sortedUsers.filter(user =>
-    Object.values(user).some(value =>
-      value.toString().toLowerCase().includes(searchValue.toLowerCase())
-    )
+  const filteredUsers = sortedUsers.filter((user) =>
+      Object.values(user).some((value) =>
+          value.toString().toLowerCase().includes(searchValue.toLowerCase())
+      )
   );
 
   function handleSearchChange(event) {
@@ -88,102 +72,118 @@ export default function UserDashboard() {
   }
 
   return (
-    <div className="w-full  text-xs sm:text-sm mx-auto flex flex-col flex-1 gap-3 sm:gap-5">
-      <div className="flex items-center">
-        <h1 className="text-3xl">User List</h1>
-      </div>
-      {loading && (
-        <div className="flex-1 grid place-items-center">
-          <i className="fa-solid fa-spinner animate-spin text-6xl"></i>
+      <div className="container my-4">
+        <h1 className="text-center mb-4">User List</h1>
+        <div className="mt-4 d-md-block d-lg-none">
+          <h5>Legend</h5>
+          <div className="d-flex justify-content-center">
+            <div className="d-flex align-items-center mx-2 text-primary">
+              <AiOutlineEdit className="me-1" />
+              <span>Edit User</span>
+            </div>
+            <div className="d-flex align-items-center mx-2 text-danger">
+              <AiOutlineDelete className="me-1" />
+              <span>Delete User</span>
+            </div>
+            <div className="d-flex align-items-center mx-2 text-info">
+              <AiOutlinePlus className="me-1" />
+              <span>Add New User</span>
+            </div>
+          </div>
         </div>
-      )}
-      <div className="current-users">
-        {!loading && (
-          <>
-            <span>Search for a user: </span><div className="search-bar mb-5">
-              <input
-                type="text"
-                value={searchValue}
-                onChange={handleSearchChange}
-                placeholder="Search"
-              />
+        {loading && (
+            <div className="d-flex justify-content-center my-4">
+              <i className="fa-solid fa-spinner fa-spin fa-2x"></i>
             </div>
-            <table className="table-dark">
-              <thead>
-                <tr>
-                  <th>
-                    <button onClick={() => handleSort("firstName")}>
-                      First Name {sortField === "firstName" && renderSortArrow() ? renderSortArrow() : "↑↓"}
-                    </button>
-                  </th>
-                  <th>
-                    <button onClick={() => handleSort("lastName")}>
-                      Last Name {sortField === "lastName" && renderSortArrow() ? renderSortArrow() : "↑↓"}
-                    </button>
-                  </th>
-                  <th>
-                    <button onClick={() => handleSort("studentNumber")}>
-                      Student # {sortField === "studentNumber" && renderSortArrow() ? renderSortArrow() : "↑↓"}
-                    </button>
-                  </th>
-                  <th>
-                    <button onClick={() => handleSort("isAdmin")}>
-                      Admin {sortField === "isAdmin" && renderSortArrow() ? renderSortArrow() : "↑↓"}
-                    </button>
-                  </th>
-                  <th>
-                    <button onClick={() => handleSort("email")}>
-                      Email {sortField === "email" && renderSortArrow() ? renderSortArrow() : "↑↓"}
-                    </button>
-                  </th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredUsers.map((user, i) => (
-                  <tr key={i}>
-                    <td>{user.firstName ? user.firstName : ""}</td>
-                    <td>{user.lastName ? user.lastName : ""}</td>
-                    <td>{user.studentNumber}</td>
-                    <td>{user.isAdmin ? "✅" : "❌"}</td>
-                    <td>{user.email}</td>
-                    <td className="flex">
-                      <Link href={`/editUser/${user.id}`}>
-                        <Button size="small" sx={{ mr: 0.5, ml: 0.5 }} variant="contained">
-                          Edit User
-                        </Button>
-                      </Link>
-                      <Button
-                        size="small"
-                        sx={{ ml: 0.5 }}
-                        color="error"
-                        variant="contained"
-                        onClick={() => handleDelete(user.id)}
-                      >
-                        Delete User
-                      </Button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-
-            <div className="mt-5">
-              <Link
-                href="/addUser"
-                underline="hover"
-                style={{ fontSize: "200%", marginBottom: ".5rem" }}
-              >
-                <Button size="large" variant="outlined">
-                  Add New User
-                </Button>
-              </Link>
-            </div>
-          </>
         )}
+        <div className="current-users">
+          {!loading && (
+              <>
+                <div className="mb-3">
+                  <label htmlFor="searchInput" className="form-label">
+                    Search for a user:
+                  </label>
+                  <input
+                      type="text"
+                      id="searchInput"
+                      className="form-control"
+                      value={searchValue}
+                      onChange={handleSearchChange}
+                      placeholder="Search"
+                  />
+                </div>
+                <table className="table table-striped table-bordered">
+                  <thead>
+                  <tr>
+                    <th>
+                      <button className="btn btn-link" onClick={() => handleSort("firstName")}>
+                        First Name {sortField === "firstName" && renderSortArrow()}
+                      </button>
+                    </th>
+                    <th>
+                      <button className="btn btn-link" onClick={() => handleSort("lastName")}>
+                        Last Name {sortField === "lastName" && renderSortArrow()}
+                      </button>
+                    </th>
+                    <th>
+                      <button className="btn btn-link" onClick={() => handleSort("studentNumber")}>
+                        Student # {sortField === "studentNumber" && renderSortArrow()}
+                      </button>
+                    </th>
+                    <th>
+                      <button className="btn btn-link" onClick={() => handleSort("isAdmin")}>
+                        Admin {sortField === "isAdmin" && renderSortArrow()}
+                      </button>
+                    </th>
+                    <th>
+                      <button className="btn btn-link" onClick={() => handleSort("email")}>
+                        Email {sortField === "email" && renderSortArrow()}
+                      </button>
+                    </th>
+                    <th>Actions</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {filteredUsers.map((user, i) => (
+                      <tr key={i}>
+                        <td>{user.firstName || ""}</td>
+                        <td>{user.lastName || ""}</td>
+                        <td>{user.studentNumber}</td>
+                        <td>{user.isAdmin ? "✅" : "❌"}</td>
+                        <td>{user.email}</td>
+                        <td className="d-flex justify-content-between">
+                          <Link href={`/editUser/${user.id}`} passHref>
+                            <Button size="small" className="btn-narrow me-1" variant="contained" color="primary">
+                              <span className="d-none d-lg-inline">Edit</span>
+                              <AiOutlineEdit className="d-lg-none" />
+                            </Button>
+                          </Link>
+                          <Button
+                              size="small"
+                              className="btn-narrow"
+                              variant="contained"
+                              color="error"
+                              onClick={() => handleDelete(user.id)}
+                          >
+                            <span className="d-none d-lg-inline">Delete</span>
+                            <AiOutlineDelete className="d-lg-none" />
+                          </Button>
+                        </td>
+                      </tr>
+                  ))}
+                  </tbody>
+                </table>
+                <div className="mt-5">
+                  <Link href="/addUser" passHref>
+                    <Button size="large" className="btn-narrow" variant="outlined">
+                      <span className="d-none d-lg-inline">Add New User</span>
+                      <AiOutlinePlus className="d-lg-none" />
+                    </Button>
+                  </Link>
+                </div>
+              </>
+          )}
+        </div>
       </div>
-    </div>
   );
 }
-
-//export const GetServerSideProps = () => {};

@@ -225,7 +225,12 @@ const AddCourseVideoContent = ({ onSubmit, documentIdOfVideo, courseCode }) => {
     setNewQuestionCorrectAnswer(updatedCorrectAnswer);
     console.log(updatedCorrectAnswer);
   };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
+
+
+  };
   const handleAddNewQuestion = async () => {
     event.preventDefault();
     console.log("adding new question");
@@ -238,6 +243,7 @@ const AddCourseVideoContent = ({ onSubmit, documentIdOfVideo, courseCode }) => {
       correctAnswer: newQuestionCorrectAnswer,
       contentId: documentIdOfVideo,
     };
+
 
     console.log(updatedQuestion);
 
@@ -437,7 +443,9 @@ const AddCourseVideoContent = ({ onSubmit, documentIdOfVideo, courseCode }) => {
               <Button  style={{ marginLeft: '1rem' }}  className='btn' variant="contained" onClick={() => handleDeleteTimestamp(index, question.currentDocId)}>
                 Delete Question
               </Button>
+
             </div>
+
           </form>
         ))}{" "}
       </div>
@@ -600,6 +608,9 @@ const AddCourseVideoContent = ({ onSubmit, documentIdOfVideo, courseCode }) => {
             Add New Question
           </Button>
         </div>
+        <Button className="btn" variant="contained" color="success" type="submit" onClick={handleSubmit}>
+          Submit All Questions
+        </Button>
       </form>
     </>
   );

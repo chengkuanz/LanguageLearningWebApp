@@ -7,7 +7,7 @@ import Layout from '../components/Layout';
 
 export default function Home() {
     const { currentUser, isAdmin } = useAuth();
-
+//      <Layout>      </Layout>
     return (
         <>
             <Head>
@@ -17,9 +17,9 @@ export default function Home() {
             </Head>
             {!currentUser && <Login />}
             {currentUser && isAdmin && (
-                <Layout>
+
                     <Homepage />
-                </Layout>
+
             )}
             {currentUser && !isAdmin && <AccessDenied />}
         </>

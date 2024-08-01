@@ -43,7 +43,7 @@ import AccessDenied from './AccessDenied';
 export default function Layout(props) {
     const { children } = props;
     const { currentUser, isAdmin } = useAuth();
-
+//
     return (
         <div className="d-flex flex-column min-vh-100 bg-light text-black">
             <Header />

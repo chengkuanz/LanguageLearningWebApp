@@ -111,7 +111,7 @@ export default function UserDashboard() {
                         <td>{announcement.expiryDate}</td>
                         <td>{announcement.text}</td>
                         <td className="d-flex justify-content-between">
-                          <Link href={`/editAnnouncement/${announcement.id}`} passHref>
+                          <Link href={`/editAnnouncements/${announcement.id}`} passHref>
                             <Button size="small" className="btn-narrow me-1" variant="contained" color="primary">
                               <span className="d-none d-lg-inline">Edit</span>
                               <AiOutlineEdit className="d-lg-none" />

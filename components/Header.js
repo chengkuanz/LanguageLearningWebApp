@@ -43,8 +43,8 @@ export default function Header() {
               <div role="button" className="navbar-brand">
                 <h1 className="m-0">
                   <span className="text-success">Italian</span>
-                  <span className="text-dark"> App</span>
-                  <span className="text-danger"> Dashboard</span>
+                  <span className="text-dark"> Language</span>
+                  <span className="text-danger"> App</span>
                 </h1>
               </div>
             </Link>

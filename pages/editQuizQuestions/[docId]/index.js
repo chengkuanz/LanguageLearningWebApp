@@ -64,7 +64,7 @@ export default function Page() {
   return (
     <>
       {/* <p>Course Code: {router.query.id}</p> */}
-      <h1>Currenly editing: <strong>{courseContent.title}</strong></h1>
+      <h1>Currently editing: <strong>{courseContent.title}</strong></h1>
         
 
       <QuizForm documentId={documentId} type="Video" />
